@@ -18,9 +18,12 @@ namespace jGui{
             height = _text.getLocalBounds().height;
         }
 
-        void SetFont(const char* font){
-            _font.loadFromFile(font);
-        }
+        void SetFont(const char* font) { _font.loadFromFile(font); }
+        void SetStyle(unsigned int style) { _text.setStyle(style); }
+
+        sf::Vector2f GetBounds() { return sf::Vector2f{width, height}; }
+
+        sf::Text& GetTextComponent() { return _text; }
 
         void SetText(const char* text){
             _text.setString(text);
@@ -28,18 +31,12 @@ namespace jGui{
             height = _text.getLocalBounds().height;
         }
 
-        void SetStyle(unsigned int style){
-            _text.setStyle(style);
-        }
 
         void SetPosition(const sf::Vector2f& pos){
             _position = pos;
             _text.setPosition(_position);
         }
 
-        sf::Vector2f GetBounds() {
-            return sf::Vector2f{width, height};
-        }
 
         void Draw(sf::RenderWindow& window) const override {
             window.draw(_text);

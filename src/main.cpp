@@ -21,11 +21,13 @@ int main(){
     label.SetStyle(sf::Text::Bold | sf::Text::Italic);
 
     // Set a function callback for the button
-    btn.SetOnClick([&](){
-       label.SetText("Button 1 Pressed!");
+    btn.SetOnClick([](){
+       std::cout << "Btn1 press\n";
     });
 
     btn2.SetOnClick(button2Callback);
+
+    label.GetTextComponent().setLetterSpacing(12.5f);
 
     // Game Loop
     while(window.isOpen()){
@@ -35,11 +37,13 @@ int main(){
                 window.close();
 
             btn.EventHandler(e, window);
+            btn2.EventHandler(e, window);
         }
 
         window.clear(sf::Color::Black);
 
         btn.Draw(window);
+        btn2.Draw(window);
         label.Draw(window);
 
         window.display();

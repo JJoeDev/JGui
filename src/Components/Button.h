@@ -3,7 +3,10 @@
 
 #include "Component.h"
 
+#include <SFML/System/Vector2.hpp>
+#include <cmath>
 #include <functional>
+#include <system_error>
 
 namespace jGui{
     class Button : public Component {
@@ -12,6 +15,14 @@ namespace jGui{
 
         void SetOnClick(std::function<void()> onClick){
             _onClick = onClick;
+        }
+
+        void SetPosition(const sf::Vector2f& pos){
+            _position = pos;
+        }
+
+        void SetScale(const sf::Vector2f& scale){
+            _scale = scale;
         }
 
         void Draw(sf::RenderWindow& window) const override {
