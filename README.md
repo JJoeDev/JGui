@@ -1,49 +1,45 @@
+
 # JGui
-A simple GUI library for SFML
 
-## How to use (in code)
+JGui is a simple gui library made on top of SFML for SFML.
 
-Initialization for Button and Label
+[Features](#features)
 
+[Code](#code)
+
+## Features
+
+| Feature | Code |
+| - | - |
+| Buttons | Button btn(Position, Scale, Color) |
+| Label | Label label(Position, Char size, Color, Font location (const char*)) |
+
+## Code
+Available Functions
 ```cpp
-// Button takes Position Scale, and Fill color
-Button btn(sf::Vector2f(100.0f, 100.0f), sf::Vector2f(200.0f, 50.0f), sf::Color::Blue);
-
-// Label takes Position Char size, Fill color, and Font location
-Label label(sf::Vector2f(100.0f, 50.0f), 24, sf::Color::Red, "Font/Comfortaa.ttf");
+SetOnClick(std::function<void()>);
+Draw(sf::RenderWindow&) const override;
+EventHandler(const sf::Event&, sf::RenderWindow&) override;
 ```
-
-Label has extra param to set after constructor
-
+Example code for Buttons
 ```cpp
-// Set the text (const char*)
-label.SetText("Hello");
-
-// Set style uses unsigned int
-label.SetStyle(sf::Text::Bold);
-```
-
-But how do you know if the button has been pressed?
-
-```cpp
-// Lambda
-btn.SetOnClick([](){
-  std::cout << "Button Clicked!\n";
+void Button2Callback(){
+  // Code for when button 2 is pressed
 }
 
-// Function
+int main(){
+  // initialize sfml
 
-void callbackFunc(){
-  std::cout << "Button Clicked!\n";
-}
+  Button btn(sf::Vector2f(100, 100), sf::Vector2f(200, 50), sf::Color::Red);
+  Button btn2(sf::Vector2f(100, 200), sf::Vector2f(100, 50), sf::Color::Red);
 
-btn.SetOnClick(callbackFunc);
-```
+  btn.SetOnClick([](){
+    // Code for when button is pressed
+  });
 
-Now the last thing to do to use them is to implement button event function in your event code and the render code in your render loop
+  btn2.SetOnClick(Button2Callback);
 
-```cpp
-while(window.isOpen()){
+  // Main loop
   sf::Event e;
   while(window.pollEvent(e)){
     if(e.type == sf::Event::Closed)
@@ -52,11 +48,31 @@ while(window.isOpen()){
     btn.EventHandler(e, window);
   }
 
-  window.clear(sf::Color::Black);
-
+  // Render Loop
   btn.Draw(window);
-  label.Draw(window);
+}
+```
 
-  window.display();
+### Labels
+
+Available functions
+```cpp
+SetFont(const char*);
+SetText(const char*);
+SetStyle(unsigned int);
+SetPosition(const sf::Vector2f&);
+sf::Vector2f GetBounds();
+Draw(sf::RenderWindow&) const override;
+```
+Example code for Labels
+```cpp
+int main(){
+  // Initialize sfml
+  Label label(sf::Vector2f(100, 50), 24, sf::Color::Green, "Font/Comfortaa.ttf");
+  label.SetText("Hello World!");
+  label.SetStyle(sf::Text::Bold | sf::Text::Italic);
+
+  // Render loop
+  label.Draw(window);
 }
 ```
