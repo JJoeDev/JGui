@@ -2,8 +2,7 @@
 #include <SFML/Window/Event.hpp>
 #include <iostream>
 
-#include "Button.h"
-#include "Label.h"
+#include "JGui.h"
 
 using jGui::Button, jGui::Label;
 
